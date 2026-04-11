@@ -1,22 +1,52 @@
 ---
-title: Sample Changelog
-description: Sample release notes you can replace with your real updates.
+title: Changelog
+description: Release notes and updates for the roadbeat Mobile App.
 ---
 
-## Sample updates
+<Update label="2026-04-11" description="v1.0.1" tags={["bugfix"]}>
+## Bug Fix Release
 
-<Callout kind="alert">
-This changelog is example content. Replace every entry with your real releases.
-</Callout>
+Fixed 17 bugs identified during the full application audit:
 
-<Update label="2026-01-26" description="Sample Update" tags={["sample"]}>
-## What changed
-- Cleaned up placeholder copy across the starter kit.
-- Added clearer "sample" messaging to avoid confusion.
+- **API response unwrapping** — Fixed 6 services (`PublishersService`, `NotificationsService`, `ContentItemsService`, `FollowsService`, `BookmarksService`, `ContentDetailPage`) that were not correctly handling the Studio API's `{ data: ... }` response envelope
+- **Content type display** — Fixed `[object Object]` rendering for content type names, descriptions, and categories by adding i18n resolution. Fixed raw `.png` filenames for icons by adding a 50+ type emoji icon map
+- **Navigation** — Teaser card clicks now navigate to the content detail page instead of logging to console
+- **Bookmarking** — Bookmark toggle on Discover page now properly calls `BookmarksService.toggleBookmark()` and passes `isBookmarked` state to content cards
+- **Discover filters** — Added goal group tabs, "All" and "Random" buttons, and the slide-in filter panel. Goal/random/browseAll params are now passed to the search API
+- **View modes** — Added Calendar and Map view modes alongside Cards and List
 </Update>
 
-<Update label="2025-12-10" description="Sample Update" tags={["sample"]}>
-## What changed
-- Simplified the Quickstart steps.
-- Trimmed Help Center examples.
+<Update label="2026-04-01" description="v1.0.0" tags={["feature"]}>
+## Initial Release
+
+The first public release of the roadbeat Mobile App — a cross-platform mobile publishing and content discovery application.
+
+### Consumer Features
+- **Compass** — Personal goal management with categories, templates, and time horizons
+- **Discover** — Goal-aligned content discovery with faceted search, filters, and multiple view modes (Cards, List, Calendar, Map)
+- **Publishers** — Publisher directory with follow/unfollow functionality
+- **Bookmarks** — Save content to collections with offline access
+- **Content Detail** — Full content detail view with bookmarking and native share
+- **Notifications** — In-app notification center with unread badges
+
+### Studio Features
+- **Content Editor** — Schema-driven forms with 40+ field types, auto-save, and version history
+- **Content Types** — Browse and import from the Schema Registry (140+ types)
+- **Asset Library** — Media management with camera capture, gallery picker, and folder navigation
+- **Publishing** — Full pipeline: validate → process media → bundle → upload to Pod → sign → push to Discovery Nodes
+- **Quick Capture** — Mobile-optimized fast content creation flow
+
+### Platform Features
+- **Multi-Account** — Connect to multiple Studio instances or run standalone with local SQLite
+- **Offline Support** — Full offline editing with sync queue and exponential backoff retry
+- **24 EU Languages** — Signal-based i18n with lazy-loaded locale files
+- **Dark Mode** — Light, dark, and system theme support
+- **Pro Plugins** — Remote Pro plugin integration via Web Components and API access
+
+### Architecture
+- Angular 19 standalone components with signal-based state management
+- Ionic 8 + Capacitor 6 for cross-platform native access
+- Tailwind CSS 3.4 for styling consistent with desktop Studio
+- Abstract data service layer supporting dual-mode (remote API / local SQLite)
+- Lazy-loaded feature routes for fast initial load
 </Update>

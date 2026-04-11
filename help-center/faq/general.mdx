@@ -1,0 +1,63 @@
+---
+title: General Questions
+description: Frequently asked questions about the roadbeat Mobile App.
+---
+
+<ExpandableGroup>
+  <Expandable title="What is the roadbeat Mobile App?" default-open="true">
+    The roadbeat Mobile App is a cross-platform mobile application for iOS and Android that combines **content discovery** (consumer mode) with **content creation and publishing** (studio mode). It's the mobile entry point into the roadbeat decentralized content ecosystem.
+  </Expandable>
+
+  <Expandable title="Is the app available for both iOS and Android?">
+    Yes. The app is built with **Ionic + Capacitor**, which produces native builds for both iOS (App Store) and Android (Google Play). It also runs in the browser for development purposes.
+  </Expandable>
+
+  <Expandable title="What's the difference between Remote and Local mode?">
+    - **Remote mode** connects to an existing roadbeat Studio server. All data is stored on the server, and you get full feature parity with the desktop Studio including Pro plugins.
+    - **Local mode** runs as a standalone app with a local SQLite database on your device. You publish directly to Content Pods and Discovery Nodes. It's designed for individual creators and works fully offline.
+
+    See [Concepts](/getting-started/concepts) for more details.
+  </Expandable>
+
+  <Expandable title="Can I use multiple accounts?">
+    Yes. The app supports **multiple accounts** simultaneously. You can connect to several remote Studio instances and maintain local accounts, switching between them at any time via the Account Switcher.
+
+    See [Multi-Account System](/architecture/multi-account) for details.
+  </Expandable>
+
+  <Expandable title="Does the app work offline?">
+    Yes, especially in local mode. You can create and edit content, capture media, manage bookmarks, and browse cached content without a network connection. Operations that require a server (publishing, syncing) are queued and processed when connectivity returns.
+
+    See [Offline & Sync](/architecture/offline-sync) for details.
+  </Expandable>
+
+  <Expandable title="What content types are supported?">
+    The app supports **140+ content types** from the roadbeat Schema Registry, including news, blog posts, events, recipes, job listings, products, photos, videos, podcasts, reviews, and many more. Each content type has a schema-driven form with fields specific to that type.
+
+    See [Content Management](/features/content-management) for the full list.
+  </Expandable>
+
+  <Expandable title="What languages does the app support?">
+    The app supports **24 EU languages**: Bulgarian, Croatian, Czech, Danish, Dutch, English, Estonian, Finnish, French, German, Greek, Hungarian, Irish, Italian, Latvian, Lithuanian, Maltese, Polish, Portuguese, Romanian, Slovak, Slovenian, Spanish, and Swedish.
+  </Expandable>
+
+  <Expandable title="What is the Compass?">
+    The **Compass** is roadbeat's personal goal management system. You define your goals (e.g., "Learn Spanish", "Visit Japan"), and the content discovery experience adapts to surface relevant content that matches your goals.
+
+    See [Compass & Goals](/features/compass) for details.
+  </Expandable>
+
+  <Expandable title="What are Discovery Nodes?">
+    **Discovery Nodes** are federated search and content indexing services in the roadbeat ecosystem. When you publish content, a teaser is pushed to Discovery Nodes, making it searchable by other users. Multiple nodes can be federated, so content published to one node is discoverable through others.
+  </Expandable>
+
+  <Expandable title="What is a Content Pod?">
+    A **Content Pod** is personal static hosting for your published content bundles. It's S3-compatible storage where your full content (text, images, videos) is hosted. Teasers on Discovery Nodes link back to your Content Pod for the full content.
+  </Expandable>
+
+  <Expandable title="What are Pro plugins?">
+    **Pro plugins** add advanced features like editorial workflows, content scheduling, version comparison, audit trails, and more. They require a Pro license and are only available when connected to a Studio instance in remote mode.
+
+    See [Pro Plugins](/features/pro-plugins) for the full plugin list.
+  </Expandable>
+</ExpandableGroup>

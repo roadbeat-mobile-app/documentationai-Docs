@@ -1,0 +1,117 @@
+---
+title: Connectivity
+description: Troubleshoot network, sync, and offline issues in the roadbeat Mobile App.
+---
+
+## Network Issues
+
+<Expandable title="The app shows 'Offline' but I have internet" default-open="true">
+  **Possible causes:**
+  - The Capacitor Network plugin may not detect connectivity changes immediately
+  - Your device may be connected to WiFi but the router has no internet
+  - A VPN or proxy may be interfering
+
+  **Solutions:**
+  1. Toggle airplane mode on and off to force a network state refresh
+  2. Try switching between WiFi and mobile data
+  3. Restart the app — network state is re-checked on startup
+  4. Check if other apps can access the internet
+</Expandable>
+
+<Expandable title="API requests fail with timeout errors">
+  **Possible causes:**
+  - The Studio server is unreachable or slow
+  - High network latency (e.g., poor mobile signal)
+  - Firewall or corporate network blocking the connection
+
+  **Solutions:**
+  1. Check if the Studio URL is accessible in your browser
+  2. Try from a different network (WiFi vs. mobile data)
+  3. In remote mode, verify the Studio URL in **Profile → Settings → Account**
+  4. Check the Studio server status if you're the administrator
+</Expandable>
+
+<Expandable title="Cannot connect to Studio server">
+  **Possible causes:**
+  - Incorrect Studio URL
+  - Studio server is not running
+  - SSL certificate issues
+  - CORS configuration on the server
+
+  **Solutions:**
+  1. Verify the Studio URL — it should include the protocol (e.g., `https://studio.example.com`)
+  2. Try accessing `{studioUrl}/api/v1/health` in a browser
+  3. Ensure the Studio server allows connections from mobile clients
+  4. Check that the SSL certificate is valid and not self-signed (or configure trust if self-signed)
+</Expandable>
+
+## Sync Issues
+
+<Expandable title="Sync queue shows items stuck in 'processing'" default-open="false">
+  **Cause:** A sync operation may have started but the app was closed or lost connectivity mid-operation.
+
+  **Solutions:**
+  1. Go to **Profile → Sync Status**
+  2. Check the stuck item's error message
+  3. Tap **Retry** to attempt the operation again
+  4. If it continues to fail, tap **Discard** to remove the item and recreate the operation manually
+</Expandable>
+
+<Expandable title="Failed sync items keep retrying">
+  **Cause:** The sync queue uses exponential backoff with a maximum of 3 retries. After 3 failures, items are marked as `failed` and stop retrying automatically.
+
+  **Solutions:**
+  1. Check the error message on the failed item — it may indicate a specific issue (e.g., authentication expired, server error)
+  2. Fix the underlying issue (e.g., re-authenticate, check server status)
+  3. Tap **Retry** to reset the retry count and attempt again
+</Expandable>
+
+<Expandable title="Bookmarks/follows not syncing">
+  **Cause:** Bookmarks and follows use a debounced sync with a 5-second delay. If the app is closed before the sync fires, changes may only be saved locally.
+
+  **Solutions:**
+  1. Wait at least 5 seconds after making changes before closing the app
+  2. On next launch, the app performs a union merge of local and server state — no data is lost
+  3. Force a sync from **Profile → Sync Status → Sync Now**
+</Expandable>
+
+<Expandable title="Goals not updating from Context Directory">
+  **Cause:** Goals are synced periodically (every 30 minutes) via background sync. Recent changes on the Context Directory may not be reflected immediately.
+
+  **Solutions:**
+  1. Pull-to-refresh on the Compass page to trigger an immediate sync
+  2. Go to **Profile → Sync Status** and check the last goal sync timestamp
+  3. Verify the Context Directory is reachable
+</Expandable>
+
+## Offline Mode
+
+<Expandable title="Can I create content offline in remote mode?">
+  Remote mode requires a connection to the Studio API for most operations. However:
+
+  - You can **view** previously cached content
+  - Content creation and editing **requires connectivity** in remote mode
+  - For full offline support, use a **local account**
+
+  See [Offline & Sync](/architecture/offline-sync) for the complete offline capability matrix.
+</Expandable>
+
+<Expandable title="Published content not appearing after coming online">
+  **Cause:** When publishing offline, the operation is queued. After coming online, the queue processes items in priority order.
+
+  **Solutions:**
+  1. Check **Profile → Sync Status** for the queue status
+  2. Ensure the publish operation completed successfully (green checkmark)
+  3. Discovery Nodes may need a few seconds to index the new teaser
+  4. Pull-to-refresh on the Discover page to see the latest results
+</Expandable>
+
+<Expandable title="Media uploads queued but not processing">
+  **Cause:** Media uploads have dependencies — they must complete before the content publish operation can proceed.
+
+  **Solutions:**
+  1. Ensure you have a stable connection (media uploads need sustained bandwidth)
+  2. Check storage quota on the Content Pod
+  3. Large files may take longer — check upload progress in Sync Status
+  4. If an upload fails repeatedly, check the file size against the Pod's limits
+</Expandable>

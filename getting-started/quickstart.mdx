@@ -1,0 +1,180 @@
+---
+title: Quickstart
+description: Set up the roadbeat Mobile App development environment and run your first build.
+---
+
+Get the roadbeat Mobile App running locally in under 10 minutes.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** 20+ and **pnpm** 9+
+- **Angular CLI** 19+ (`npm install -g @angular/cli`)
+- **Ionic CLI** 8+ (`npm install -g @ionic/cli`)
+- **Android Studio** (for Android builds) or **Xcode 15+** (for iOS builds)
+
+<Callout kind="tip">
+  For browser-only development (no native features), you only need Node.js and pnpm. Native features like camera and SQLite require a device or emulator.
+</Callout>
+
+## Setup
+
+<Steps>
+  <Step title="Clone the repository" icon="git-branch">
+    ```bash
+    git clone https://github.com/roadbeat/mobile-app.git
+    cd mobile-app
+    ```
+  </Step>
+
+  <Step title="Install dependencies" icon="package">
+    ```bash
+    pnpm install
+    ```
+  </Step>
+
+  <Step title="Configure environment" icon="settings">
+    Copy the environment template and adjust settings as needed:
+
+    ```bash
+    cp src/environments/environment.ts.example src/environments/environment.ts
+    ```
+
+    Key configuration values:
+
+    ```typescript
+    export const environment = {
+      production: false,
+      contextDirectoryUrl: 'http://localhost:3100',
+      schemaRegistryUrl: 'http://localhost:3200',
+      discoveryNodeUrls: ['http://localhost:3300'],
+    };
+    ```
+  </Step>
+
+  <Step title="Start the dev server" icon="play-circle">
+    ```bash
+    pnpm start
+    ```
+
+    The app will be available at `http://localhost:4201`.
+  </Step>
+</Steps>
+
+## First Launch
+
+When you open the app for the first time, you'll be presented with the **Account Switcher**. You have two options:
+
+<Tabs>
+  <Tab title="Connect to Studio" icon="cloud">
+    If you have a running roadbeat Studio instance:
+
+    1. Tap **Add Remote Studio**
+    2. Enter the Studio URL (e.g., `http://localhost:3000`)
+    3. The app validates the connection
+    4. Log in with your Studio credentials
+    5. You're redirected to the main app
+
+    ```
+    Studio URL: http://localhost:3000
+    Email: admin@example.com
+    Password: ********
+    ```
+  </Tab>
+  <Tab title="Create Local Account" icon="smartphone">
+    For standalone mode with a local database:
+
+    1. Tap **Create Local Account**
+    2. Register with the Context Directory
+    3. Complete the onboarding wizard (location, goals)
+    4. You're ready to create content locally
+  </Tab>
+</Tabs>
+
+## Running on Device
+
+<Tabs>
+  <Tab title="Android" icon="smartphone">
+    ```bash
+    # Build and sync to Android
+    ionic cap sync android
+
+    # Open in Android Studio
+    ionic cap open android
+    ```
+
+    Then run from Android Studio on an emulator or connected device.
+  </Tab>
+  <Tab title="iOS" icon="smartphone">
+    ```bash
+    # Build and sync to iOS
+    ionic cap sync ios
+
+    # Open in Xcode
+    ionic cap open ios
+    ```
+
+    Then run from Xcode on a simulator or connected device.
+
+    <Callout kind="info">
+      iOS builds require macOS with Xcode 15+ and a valid Apple Developer account for device testing.
+    </Callout>
+  </Tab>
+</Tabs>
+
+## Project Structure
+
+```
+mobile-app/
+├── src/
+│   ├── app/
+│   │   ├── core/               # Singleton services, guards, models
+│   │   │   ├── services/       # AccountService, AuthService, DatabaseService, etc.
+│   │   │   ├── guards/         # AuthGuard, AccountGuard, OnboardingGuard
+│   │   │   ├── interceptors/   # AuthInterceptor, ErrorInterceptor
+│   │   │   └── models/         # TypeScript interfaces
+│   │   ├── shared/             # Reusable components, directives, pipes
+│   │   ├── features/           # Lazy-loaded feature modules
+│   │   │   ├── compass/        # Goal management
+│   │   │   ├── discover/       # Content discovery
+│   │   │   ├── content/        # Content CRUD, editor, assets
+│   │   │   ├── publishing/     # Publishing pipeline
+│   │   │   ├── bookmarks/      # Bookmarks & collections
+│   │   │   ├── publishers/     # Publisher directory
+│   │   │   ├── notifications/  # Notification center
+│   │   │   ├── auth/           # Login, register, forgot password
+│   │   │   ├── onboarding/     # Onboarding wizard
+│   │   │   ├── profile/        # Profile, settings, sync
+│   │   │   ├── quick-create/   # Quick capture flow
+│   │   │   └── pro/            # Pro plugin host
+│   │   ├── app.routes.ts       # Top-level routing
+│   │   └── app.config.ts       # Angular standalone config
+│   ├── assets/i18n/            # 24 EU locale JSON files
+│   └── environments/           # Environment configs
+├── android/                    # Capacitor Android project
+├── ios/                        # Capacitor iOS project
+└── capacitor.config.ts         # Capacitor configuration
+```
+
+## Useful Commands
+
+| Command | Description |
+|---------|-------------|
+| `pnpm start` | Start dev server at `localhost:4201` |
+| `pnpm build` | Production build |
+| `pnpm test` | Run unit tests |
+| `ionic cap sync` | Sync web build to native projects |
+| `ionic cap run android` | Build and run on Android |
+| `ionic cap run ios` | Build and run on iOS |
+
+## Next Steps
+
+<Columns cols={2}>
+  <Card title="Concepts" icon="lightbulb" href="/getting-started/concepts">
+    Understand the core architectural concepts before diving into features.
+  </Card>
+  <Card title="Architecture" icon="layers" href="/architecture/overview">
+    Deep dive into the dual-mode architecture and data service layer.
+  </Card>
+</Columns>

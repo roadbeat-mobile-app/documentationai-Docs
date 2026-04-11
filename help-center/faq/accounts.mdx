@@ -1,0 +1,72 @@
+---
+title: Accounts & Authentication
+description: Frequently asked questions about accounts, authentication, and multi-account management.
+---
+
+<ExpandableGroup>
+  <Expandable title="How do I add a remote Studio account?" default-open="true">
+    <Steps>
+      <Step title="Open Account Switcher">
+        Tap the profile icon or navigate to the Account Switcher from the Profile tab.
+      </Step>
+      <Step title="Tap 'Add Remote Studio'">
+        Enter the URL of your Studio instance (e.g., `https://studio.example.com`).
+      </Step>
+      <Step title="Log in">
+        Enter your Studio email and password. The app validates the connection, stores your JWT tokens securely, and adds the account.
+      </Step>
+    </Steps>
+  </Expandable>
+
+  <Expandable title="How do I create a local account?">
+    <Steps>
+      <Step title="Open Account Switcher">
+        Navigate to the Account Switcher.
+      </Step>
+      <Step title="Tap 'Create Local Account'">
+        Register with the Context Directory by providing a display name, email, and password.
+      </Step>
+      <Step title="Complete Onboarding">
+        Set your location and initial goals in the onboarding wizard.
+      </Step>
+    </Steps>
+
+    A local SQLite database is created on your device to store all your content, media, and settings.
+  </Expandable>
+
+  <Expandable title="How do I switch between accounts?">
+    Go to **Profile → Account Switcher** (or tap your avatar in the header). The list shows all configured accounts with the active one highlighted. Tap a different account to switch. All data reloads for the new account.
+  </Expandable>
+
+  <Expandable title="What happens to my data when I switch accounts?">
+    Your current account's state is preserved (tokens, last viewed page). When you switch back, everything is restored. Each account's data is completely isolated — local accounts have separate SQLite databases, and remote accounts connect to different servers.
+  </Expandable>
+
+  <Expandable title="How do I delete an account?">
+    Go to **Profile → Settings → Account → Delete Account**. A confirmation dialog warns about data loss.
+
+    <Callout kind="danger">
+      For local accounts, deleting removes all local data including drafts, media, and settings permanently. For remote accounts, only the app connection is removed — server data is not affected.
+    </Callout>
+  </Expandable>
+
+  <Expandable title="My session expired. What do I do?">
+    The app automatically refreshes expired access tokens using the refresh token. If the refresh token is also expired (typically after 30 days of inactivity), you'll be redirected to the login page. Simply log in again with your credentials.
+  </Expandable>
+
+  <Expandable title="I forgot my password. How do I reset it?">
+    On the Login page, tap **"Forgot Password?"**. Enter your email address, and a reset link will be sent to your email. Follow the link to set a new password, then return to the app and log in.
+  </Expandable>
+
+  <Expandable title="Are my credentials stored securely?">
+    Yes. All tokens and credentials are stored in **Capacitor Secure Storage**, which uses the iOS Keychain and Android EncryptedSharedPreferences. Passwords are never stored on the device — only JWT tokens.
+  </Expandable>
+
+  <Expandable title="Can I use biometric unlock?">
+    Biometric unlock (fingerprint/Face ID) is supported as an optional feature. When enabled, you can unlock the app and access stored tokens without entering your password. Configure this in **Profile → Settings → Security**.
+  </Expandable>
+
+  <Expandable title="How many accounts can I have?">
+    There is no limit. You can add as many remote Studio connections and local accounts as you need. Each account is independent with its own data, settings, and authentication.
+  </Expandable>
+</ExpandableGroup>

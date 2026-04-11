@@ -1,0 +1,109 @@
+---
+title: Introduction
+description: The roadbeat Mobile App — a cross-platform mobile publishing and content discovery app for iOS and Android.
+---
+
+The **roadbeat Mobile App** is a cross-platform mobile application for iOS and Android that brings the full power of the roadbeat ecosystem to your smartphone. It combines **content discovery** (consumer mode) with **content creation and publishing** (studio mode) in a single, unified experience.
+
+<Columns cols={3}>
+  <Card title="Discover Content" icon="search" href="/getting-started/quickstart">
+    Goal-aligned content discovery with smart filters, bookmarks, and publisher following.
+  </Card>
+  <Card title="Create & Publish" icon="edit" href="/features/content-management">
+    Schema-driven content editor with 40+ field types, camera integration, and offline support.
+  </Card>
+  <Card title="Multi-Account" icon="users" href="/architecture/multi-account">
+    Connect to multiple Studio instances or run standalone with a local database.
+  </Card>
+</Columns>
+
+## What is roadbeat?
+
+roadbeat is a decentralized, structured content ecosystem built for the European market. It consists of several interconnected services:
+
+- **Studio** — A headless CMS for creating and managing structured content
+- **Discovery Nodes** — Federated search and content indexing services
+- **Content Pods** — Personal static hosting for published content bundles
+- **Context Directory** — User identity, goals, follows, bookmarks, and geo data
+- **Schema Registry** — Centralized content type definitions with forms and validation
+
+The Mobile App is the **universal mobile entry point** into this ecosystem.
+
+## Two Operating Modes
+
+The app operates in two modes, determined by the active account:
+
+<Tabs>
+  <Tab title="Remote Mode" icon="cloud">
+    Connect to an existing **roadbeat Studio** instance. The app acts as a mobile-optimized frontend — all data is stored on the server, and the app communicates via the Studio REST API.
+
+    - Full feature parity with the desktop Studio
+    - Pro plugin support (workflows, scheduling, versioning, audit)
+    - Multi-user and organization capabilities
+    - JWT-based authentication
+  </Tab>
+  <Tab title="Local Mode" icon="smartphone">
+    Run as a **standalone fat-client** with a local SQLite database. Content is stored on-device, and publishing goes directly to Content Pods and Discovery Nodes.
+
+    - Full offline content creation and editing
+    - Ed25519 content signing
+    - Direct publishing to Discovery Nodes
+    - Single-user, personal publishing
+  </Tab>
+</Tabs>
+
+## Key Features
+
+### Consumer Features
+
+| Feature | Description |
+|---------|-------------|
+| **Compass** | Personal goal management with categories, templates, and time horizons |
+| **Discover** | Goal-aligned content discovery with faceted search, filters, and multiple view modes |
+| **Publishers** | Browse and follow content publishers with trust verification |
+| **Bookmarks** | Save content to collections with offline access |
+| **Notifications** | Push notifications for content updates and workflow tasks |
+
+### Studio Features
+
+| Feature | Description |
+|---------|-------------|
+| **Content Editor** | Schema-driven forms with 40+ field types, auto-save, and version history |
+| **Content Types** | Browse and import content types from the Schema Registry |
+| **Asset Library** | Media management with camera capture, gallery picker, and folder navigation |
+| **Publishing** | Publish to Content Pods and Discovery Nodes with Ed25519 signing |
+| **Quick Capture** | Mobile-optimized fast content creation flow |
+
+### Mobile-Specific Features
+
+| Feature | Description |
+|---------|-------------|
+| **Camera Integration** | Photo/video capture with on-device processing and variant generation |
+| **Offline Support** | Full offline editing with sync queue and exponential backoff retry |
+| **Background Sync** | Periodic sync of goals, bookmarks, and follows |
+| **Push Notifications** | FCM (Android) + APNs (iOS) integration |
+| **Share Intent** | Receive shared content from other apps |
+| **Geolocation** | Auto-fill location fields from GPS |
+
+## Technology Stack
+
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| **Framework** | Ionic 8 | Cross-platform mobile UI toolkit |
+| **Native Bridge** | Capacitor 6 | Native API access (camera, filesystem, etc.) |
+| **UI Framework** | Angular 19 | Standalone components, signal-based state |
+| **Styling** | Tailwind CSS 3.4 | Utility-first CSS (consistent with desktop Studio) |
+| **Local Database** | SQLite (Capacitor SQLite) | Structured data storage for local mode |
+| **Local Search** | SQLite FTS5 | Full-text search on local content |
+| **i18n** | Signal-based I18nService | 24 EU locales |
+
+## Next Steps
+
+<Columns cols={2}>
+  <Card title="Quickstart" icon="zap" href="/getting-started/quickstart">
+    Set up the development environment and run the app locally.
+  </Card>
+  <Card title="Concepts" icon="lightbulb" href="/getting-started/concepts">
+    Understand the core concepts: dual-mode architecture, signals, and data services.
+  </Card>
+</Columns>

@@ -1,0 +1,92 @@
+---
+title: Common Issues
+description: Solutions for frequently encountered problems in the roadbeat Mobile App.
+---
+
+## Content Not Displaying
+
+<Expandable title="Content type names show as [object Object]" default-open="true">
+  **Cause:** The Studio API returns content type names as i18n objects (`{ en: "News", de: "Nachrichten" }`) rather than plain strings.
+
+  **Solution:** This was fixed in the April 2026 update. Ensure you're running the latest version of the app. The `ContentTypesService` now resolves i18n objects automatically using `resolveContentTypeName()`.
+</Expandable>
+
+<Expandable title="Content type icons show as raw filenames">
+  **Cause:** The API returns icon filenames (e.g., `news.png`) instead of display-ready icons.
+
+  **Solution:** Updated in April 2026. The app now maps content type IDs to emoji icons using a built-in 50+ type icon map. Update to the latest version.
+</Expandable>
+
+<Expandable title="Content detail page is blank">
+  **Cause:** The API response may be wrapped in a `{ data: ... }` envelope that wasn't being unwrapped.
+
+  **Solution:** Fixed in April 2026. All services now handle the Studio API's response envelope pattern (`raw?.data ?? raw`). Update to the latest version.
+</Expandable>
+
+## Editor Issues
+
+<Expandable title="Auto-save is not working">
+  **Possible causes:**
+  - The 3-second debounce timer hasn't fired yet — wait a moment after your last edit
+  - In remote mode, the Studio API may be unreachable — check your connection
+  - The content type may not have a valid form schema
+
+  **Solution:** Check the status indicator at the bottom of the editor. If it shows "Unsaved changes" for more than 10 seconds, try manually saving via the action menu (**...**) → **Save Draft**.
+</Expandable>
+
+<Expandable title="Slug is not auto-generating">
+  **Cause:** The slug field auto-generates only when creating new content. For existing items, the slug is locked to prevent URL breakage.
+
+  **Solution:** For new content, type in the title field and the slug will update automatically. For existing content, you can manually edit the slug field.
+</Expandable>
+
+## Publishing Issues
+
+<Expandable title="Publishing fails with 'Content Pod not configured'">
+  **Cause:** In local mode, you need to configure your Content Pod connection before publishing.
+
+  **Solution:** Go to **Profile → Settings → Content Pod** and enter your S3-compatible storage credentials. Use the **Test Connection** button to verify.
+</Expandable>
+
+<Expandable title="Publishing succeeds but content is not discoverable">
+  **Possible causes:**
+  - The Discovery Node may need time to index the teaser (usually seconds)
+  - The teaser may not match any user's goals
+  - The Discovery Node may be down
+
+  **Solution:** Check the publish status page for per-node results. Verify the Discovery Node health in **Profile → Settings → Discovery Nodes**.
+</Expandable>
+
+## Bookmark Issues
+
+<Expandable title="Bookmark toggle doesn't work">
+  **Cause:** In earlier versions, the bookmark button was a placeholder that only logged to the console.
+
+  **Solution:** Fixed in April 2026. The bookmark toggle now properly calls `BookmarksService.toggleBookmark()` and passes the `isBookmarked` state to content cards. Update to the latest version.
+</Expandable>
+
+## Media Issues
+
+<Expandable title="Camera doesn't open in the browser">
+  **Cause:** The Capacitor Camera plugin requires a native device (iOS or Android). In the browser, it falls back to a file picker.
+
+  **Solution:** This is expected behavior. For full camera functionality, build and run the app on a physical device or emulator using `ionic cap run android` or `ionic cap run ios`.
+</Expandable>
+
+<Expandable title="Images are very large after capture">
+  **Cause:** Modern phone cameras produce high-resolution images (12MP+).
+
+  **Solution:** The app automatically generates resized variants (thumbnail, medium, large) from the original. The original is preserved for quality but can be cleaned up after upload via **Settings → Storage → Clear Uploaded Media**.
+</Expandable>
+
+## Performance
+
+<Expandable title="The app feels slow on initial load">
+  **Cause:** The first load fetches content types, goals, bookmarks, and follows.
+
+  **Solution:** Subsequent loads are faster because data is cached. All feature routes use lazy loading, so only the active tab's code is loaded initially. If the issue persists, check your network connection speed.
+</Expandable>
+
+<Expandable title="Infinite scroll stutters on the Discover page">
+  **Solution:** Try switching to **List view** (more compact, fewer images to render). Ensure you have a stable network connection — each page load fetches 20 results with images.
+</Expandable>

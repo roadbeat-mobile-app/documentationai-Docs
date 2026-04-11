@@ -1,11 +1,23 @@
 {
-  "name": "Starter Kit",
+  "name": "roadbeat Mobile App",
   "colors": {
     "light": {
-      "brand": "#F97316"
+      "brand": "#F97316",
+      "heading": "#1a1a1a",
+      "text": "#374151"
     },
     "dark": {
-      "brand": "#FDBA74"
+      "brand": "#FDBA74",
+      "heading": "#f2f2f2",
+      "text": "#c1c1c1"
+    }
+  },
+  "navbar": {
+    "actions": {
+      "primary": {
+        "title": "GitHub",
+        "link": "https://github.com/roadbeat/mobile-app"
+      }
     }
   },
   "navigation": {
@@ -15,82 +27,128 @@
         "icon": "book",
         "groups": [
           {
-            "group": "Start Here",
+            "group": "Getting Started",
             "icon": "rocket",
             "pages": [
               {
                 "title": "Introduction",
-                "path": "introduction",
+                "path": "getting-started/introduction",
                 "icon": "home"
               },
               {
                 "title": "Quickstart",
-                "path": "quickstart",
+                "path": "getting-started/quickstart",
                 "icon": "zap"
               },
               {
-                "title": "Components",
-                "path": "components",
-                "icon": "code"
+                "title": "Concepts",
+                "path": "getting-started/concepts",
+                "icon": "lightbulb"
               }
             ]
           },
           {
-            "group": "Components",
+            "group": "Architecture",
             "icon": "layers",
             "pages": [
               {
-                "title": "Images",
-                "path": "components/images",
-                "icon": "image"
+                "title": "Overview",
+                "path": "architecture/overview",
+                "icon": "layout"
               },
               {
-                "title": "Cards",
-                "path": "components/cards",
-                "icon": "square"
+                "title": "Multi-Account System",
+                "path": "architecture/multi-account",
+                "icon": "users"
               },
               {
-                "title": "Code",
-                "path": "components/code",
-                "icon": "code"
+                "title": "Data Services",
+                "path": "architecture/data-services",
+                "icon": "database"
               },
               {
-                "title": "Callouts",
-                "path": "components/callouts",
-                "icon": "message-square"
-              },
-              {
-                "title": "Steps",
-                "path": "components/steps",
-                "icon": "list-ordered"
-              },
-              {
-                "title": "Tabs",
-                "path": "components/tabs",
-                "icon": "columns"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API Reference",
-        "icon": "code",
-        "groups": [
-          {
-            "group": "Overview",
-            "icon": "file-text",
-            "pages": [
-              {
-                "title": "Authentication",
-                "path": "authentication",
-                "icon": "lock"
+                "title": "Offline & Sync",
+                "path": "architecture/offline-sync",
+                "icon": "cloud-off"
               }
             ]
           },
           {
-            "group": "Sample Endpoints",
-            "openapi": "openapi.yaml"
+            "group": "Features",
+            "icon": "star",
+            "pages": [
+              {
+                "title": "Compass & Goals",
+                "path": "features/compass",
+                "icon": "compass"
+              },
+              {
+                "title": "Discover",
+                "path": "features/discover",
+                "icon": "search"
+              },
+              {
+                "title": "Content Management",
+                "path": "features/content-management",
+                "icon": "file-text"
+              },
+              {
+                "title": "Content Editor",
+                "path": "features/content-editor",
+                "icon": "edit"
+              },
+              {
+                "title": "Publishing",
+                "path": "features/publishing",
+                "icon": "upload"
+              },
+              {
+                "title": "Bookmarks & Following",
+                "path": "features/bookmarks",
+                "icon": "bookmark"
+              },
+              {
+                "title": "Notifications",
+                "path": "features/notifications",
+                "icon": "bell"
+              },
+              {
+                "title": "Pro Plugins",
+                "path": "features/pro-plugins",
+                "icon": "puzzle"
+              }
+            ]
+          },
+          {
+            "group": "Guides",
+            "icon": "book-open",
+            "pages": [
+              {
+                "title": "Content Creation",
+                "path": "guides/content-creation",
+                "icon": "pen-tool"
+              },
+              {
+                "title": "Quick Capture",
+                "path": "guides/quick-capture",
+                "icon": "camera"
+              },
+              {
+                "title": "Camera & Media",
+                "path": "guides/camera-media",
+                "icon": "image"
+              },
+              {
+                "title": "Settings & Profile",
+                "path": "guides/settings",
+                "icon": "settings"
+              },
+              {
+                "title": "Authentication",
+                "path": "guides/authentication",
+                "icon": "lock"
+              }
+            ]
           }
         ]
       },
@@ -109,8 +167,12 @@
             "expandable": false,
             "pages": [
               {
-                "title": "Documentation Source",
-                "path": "help-center/faq/getting-started"
+                "title": "General Questions",
+                "path": "help-center/faq/general"
+              },
+              {
+                "title": "Accounts & Authentication",
+                "path": "help-center/faq/accounts"
               }
             ]
           },
@@ -120,19 +182,12 @@
             "expandable": false,
             "pages": [
               {
-                "title": "Page Missing in Sidebar",
-                "path": "help-center/troubleshooting/install-error"
-              }
-            ]
-          },
-          {
-            "group": "Guides",
-            "icon": "book-open",
-            "expandable": false,
-            "pages": [
+                "title": "Common Issues",
+                "path": "help-center/troubleshooting/common-issues"
+              },
               {
-                "title": "Create Your First Page",
-                "path": "help-center/guides/setup-project"
+                "title": "Connectivity",
+                "path": "help-center/troubleshooting/connectivity"
               }
             ]
           }
@@ -150,5 +205,9 @@
         ]
       }
     ]
+  },
+  "seo": {
+    "indexing": true,
+    "following": true
   }
 }

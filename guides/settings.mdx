@@ -1,0 +1,174 @@
+---
+title: Settings & Profile
+description: User profile management, app settings, theme configuration, and data export in the roadbeat Mobile App.
+---
+
+The Profile tab provides access to your user profile, app settings, account management, and configuration for Content Pods and Discovery Nodes.
+
+## Profile Page
+
+The `ProfilePage` displays:
+
+- **Avatar** — Tap to change (camera or gallery)
+- **Display name** — Editable
+- **Email address** — Read-only (change via account settings)
+- **Account type badge** — "Remote" or "Local"
+- **Content stats** — Total items, published count, draft count
+- **Quick links** — Settings, Notifications, Sync Status, Account Switcher
+
+## Settings
+
+### Appearance
+
+| Setting | Options | Default |
+|---------|---------|---------|
+| **Theme** | Light / Dark / System | System |
+| **Font size** | Small / Normal / Large | Normal |
+| **Reduced motion** | On / Off | Off |
+
+The `ThemeService` manages theme state as a signal and persists the choice to localStorage. When set to "System", it uses `matchMedia('(prefers-color-scheme: dark)')` to follow the device setting.
+
+### Language
+
+| Setting | Description |
+|---------|-------------|
+| **App language** | Choose from 24 EU languages |
+| **Content language** | Default locale for new content |
+
+The `I18nService` loads locale JSON files lazily on demand. Changing the language triggers a reload of all translated strings via signals.
+
+**Supported languages:** Bulgarian, Croatian, Czech, Danish, Dutch, English, Estonian, Finnish, French, German, Greek, Hungarian, Irish, Italian, Latvian, Lithuanian, Maltese, Polish, Portuguese, Romanian, Slovak, Slovenian, Spanish, Swedish.
+
+### Privacy
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| **Strip EXIF location** | Off | Remove GPS data from captured photos |
+| **Analytics** | On | Anonymous usage analytics |
+| **Cookie consent** | — | GDPR cookie preference (Essential Only / Accept All) |
+
+### Notifications
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| **Push notifications** | On | Enable system push notifications |
+| **Content updates** | On | New content from followed publishers |
+| **Goal matches** | On | Content matching your goals |
+| **Publishing results** | On | Publish success/failure alerts |
+| **System notifications** | On | Platform announcements |
+
+### Storage (Local Mode)
+
+| Setting | Description |
+|---------|-------------|
+| **Storage usage** | Breakdown by category (media, content, schemas) |
+| **Clear media cache** | Remove uploaded originals |
+| **Clear discovery cache** | Remove cached search results |
+| **Clear schema cache** | Remove cached content type schemas |
+
+## Account Management
+
+### Switch Account
+
+Tap "Switch Account" to open the Account Switcher and select a different account or add a new one. See [Multi-Account System](/architecture/multi-account) for details.
+
+### Edit Account
+
+| Field | Editable | Notes |
+|-------|----------|-------|
+| **Label** | Yes | Custom display name for the account |
+| **Email** | Remote only | Change via Studio settings |
+| **Password** | Remote only | Change via Studio password reset |
+| **Avatar** | Yes | Camera or gallery upload |
+
+### Delete Account
+
+<Callout kind="danger">
+  Deleting an account removes all local data including drafts, media, and settings. For remote accounts, this only removes the connection from the app — server data is not affected.
+</Callout>
+
+<Steps>
+  <Step title="Navigate to Account Settings">
+    Profile → Settings → Account → Delete Account
+  </Step>
+  <Step title="Confirm Deletion">
+    A confirmation dialog warns about data loss.
+  </Step>
+  <Step title="Data Cleanup">
+    Local database, media files, and tokens are permanently deleted.
+  </Step>
+</Steps>
+
+## Data Export (GDPR)
+
+Users can export their data in compliance with GDPR:
+
+<Steps>
+  <Step title="Request Export">
+    Profile → Settings → Data & Privacy → Export My Data
+  </Step>
+  <Step title="Generate Archive">
+    The app creates a ZIP archive containing:
+    - All content items as JSON
+    - All media files
+    - Goal portfolio
+    - Bookmarks and collections
+    - Follow list
+    - Account settings
+  </Step>
+  <Step title="Download or Share">
+    The archive can be saved to the device or shared via the native share sheet.
+  </Step>
+</Steps>
+
+## Content Pod Configuration
+
+For local mode users who publish content, the Content Pod must be configured:
+
+| Setting | Description |
+|---------|-------------|
+| **Endpoint URL** | S3-compatible storage endpoint |
+| **Bucket** | Storage bucket name |
+| **Access Key** | Authentication key |
+| **Secret Key** | Authentication secret |
+| **Public URL** | CDN URL for public content access |
+| **Region** | Storage region |
+
+A **Test Connection** button verifies the configuration. See [Publishing](/features/publishing) for details.
+
+## Discovery Node Configuration
+
+Configure which Discovery Nodes to publish content to:
+
+| Setting | Description |
+|---------|-------------|
+| **Node list** | Add/remove Discovery Node endpoints |
+| **Health status** | Green/red indicator per node |
+| **Default node** | Primary node for publishing |
+| **Auto-discover** | Find nearby nodes automatically |
+
+See [Publishing](/features/publishing) for details on node configuration.
+
+## Sync Status
+
+The Sync page shows the current state of offline operations:
+
+| Field | Description |
+|-------|-------------|
+| **Pending operations** | Count of queued operations |
+| **Currently processing** | Active operation details |
+| **Failed operations** | Items that need attention |
+| **Last sync** | Timestamp of last successful sync |
+
+Users can manually trigger a sync or retry failed operations from this page.
+
+## About
+
+The About page displays:
+
+- App version and build number
+- Open source licenses
+- Privacy policy link
+- Terms of service link
+- Support contact
+- roadbeat website link
