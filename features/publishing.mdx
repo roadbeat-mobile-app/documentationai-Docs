@@ -115,9 +115,74 @@ The `PublishStatusPage` displays the status of publishing operations:
 | `complete` | Successfully published |
 | `failed` | Publishing failed (with error details) |
 
-## Content Pod Configuration
+## Content Pod Management
 
-The `PodConfigPage` at `/tabs/publishing/pod` manages the Content Pod connection:
+The mobile app includes full Content Pod management with a signal-based `PodDataService` and three dedicated UI pages.
+
+### Pod Routes
+
+| Route | Component | Description |
+|-------|-----------|-------------|
+| `/tabs/publishing/pod` | `PodSettingsPage` | Pod mode, tier, quota, dynamic features, connectivity |
+| `/tabs/publishing/pod/advanced` | `PodConfigPage` | Raw S3/endpoint configuration |
+| `/tabs/publishing/pod-content` | `PodContentListPage` | Browse published items |
+
+### PodDataService
+
+A signal-based service that manages all pod state reactively:
+
+```typescript
+// Key signals
+isConfigured: Signal<boolean>          // Pod exists for this org
+podMode: Signal<'static' | 'dynamic' | null>
+tier: Signal<string | null>            // 'free', 'starter', 'pro', 'enterprise'
+quota: Signal<PodQuotaInfo | null>     // usage %, isNearLimit, isAtLimit
+dynamicFeatures: Signal<{ comments, reactions, statistics } | null>
+publishedItems: Signal<PodContentItem[]>
+
+// API actions
+loadConfig()              // GET /manage/content-pod/config
+publishContent(id)        // POST /manage/content-pod/publish/:id
+unpublishContent(id)      // POST /manage/content-pod/unpublish/:id
+testConnectivity()        // GET /manage/content-pod/test
+```
+
+### PodSettingsPage
+
+Full pod settings view showing:
+
+- **Overview** — pod mode (static/dynamic), tier badge, subdomain, base URL, status
+- **Quota usage** — progress bars for items and storage with color thresholds (green → yellow → red)
+- **Dynamic features** — enabled/disabled badges for comments, reactions, statistics (dynamic pods only)
+- **Connectivity** — test connection button with latency display
+- **Quick actions** — links to published items browser and advanced S3 config
+
+### PodContentListPage
+
+A searchable, sortable list of published content items:
+
+- **Search** — filter items by title
+- **Sort** — by date (newest/oldest) or title (A-Z/Z-A)
+- **Item details** — content type badge, slug, file size, publish date, pod URL
+- **Unpublish** — swipe-to-unpublish with confirmation dialog
+- **Pull-to-refresh** — reload the published items list
+
+### PodStatusCard
+
+An `<app-pod-status-card>` component embedded on the Profile page between the stats row and navigation list. Shows:
+
+- Pod mode and tier badges
+- Item count and storage usage with progress bars
+- Dynamic feature indicators (for dynamic pods)
+- Tap to navigate to pod settings or content list
+
+<Callout kind="info">
+  If no pod is configured for the current organization, the status card shows a setup call-to-action that navigates to the pod settings page.
+</Callout>
+
+### Advanced Configuration
+
+The original `PodConfigPage` at `/tabs/publishing/pod/advanced` provides raw S3-compatible storage configuration:
 
 | Setting | Description |
 |---------|-------------|
@@ -127,7 +192,7 @@ The `PodConfigPage` at `/tabs/publishing/pod` manages the Content Pod connection
 | **Secret Key** | S3 secret key |
 | **Public URL** | CDN URL for public access |
 
-A **Test Connection** button verifies the configuration by attempting a lightweight S3 operation. Storage quota is displayed when available.
+A **Test Connection** button verifies the configuration by attempting a lightweight S3 operation.
 
 ## Discovery Node Configuration
 

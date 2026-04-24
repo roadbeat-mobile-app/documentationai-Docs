@@ -3,6 +3,32 @@ title: Changelog
 description: Release notes and updates for the roadbeat Mobile App.
 ---
 
+<Update label="2026-05-23" description="v1.1.0" tags={["feature"]}>
+## Content Pod Management
+
+Full Content Pod integration in the mobile app — view status, browse published content, manage settings, and monitor quota usage.
+
+**New Components**
+
+- **PodDataService** — signal-based service managing pod config, status, quota, publish/unpublish, and connectivity testing via Studio API
+- **PodStatusCardComponent** — dashboard card embedded on profile page showing pod mode, tier, quota progress bars, and dynamic feature badges
+- **PodContentListPage** — browse, search, and sort published content items with swipe-to-unpublish and pull-to-refresh
+- **PodSettingsPage** — full settings view with mode, tier, quota usage, dynamic features (comments/reactions/statistics), connectivity test, and quick actions
+
+**Routes**
+
+- `/tabs/publishing/pod` → PodSettingsPage (mode, tier, quota, dynamic features, connectivity)
+- `/tabs/publishing/pod/advanced` → PodConfigPage (raw S3/endpoint configuration)
+- `/tabs/publishing/pod-content` → PodContentListPage (published items browser)
+
+**Profile Integration**
+
+- Pod status card embedded between stats row and navigation list on profile page
+- Settings page Content Pod link updated with descriptive subtitle
+
+**Build**: pod-settings 34 kB, pod-content-list 22 kB, profile 35 kB
+</Update>
+
 <Update label="2026-04-11" description="v1.0.1" tags={["bugfix"]}>
 ## Bug Fix Release
 
